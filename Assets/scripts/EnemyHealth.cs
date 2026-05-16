@@ -7,6 +7,11 @@ public class EnemyHealth : MonoBehaviour
 
     public float currentHealth;
 
+    [Header("Bullet Reactions")]
+    public bool explodeOnHit = false;
+
+    public bool reflectBullets = false;
+
     [Header("Regeneration")]
     public float regenRate = 10f;
 
@@ -36,7 +41,6 @@ public class EnemyHealth : MonoBehaviour
 
         currentHealth -= damage;
 
-        // Registrar último daño recibido
         lastDamageTime = Time.time;
 
         // Evitar negativos
@@ -62,7 +66,7 @@ public class EnemyHealth : MonoBehaviour
             {
                 currentHealth += regenRate * Time.deltaTime;
 
-                // No pasar máximo
+                // Limitar máximo
                 if (currentHealth > maxHealth)
                 {
                     currentHealth = maxHealth;

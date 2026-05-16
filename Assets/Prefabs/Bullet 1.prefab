@@ -179,4 +179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8cf00531dec52f43b6c34aaf40be9da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
-  lifeTime: 3
+  explosionRadius: 3
+  damage: 40
+  timer: 2
+  explosionDuration: 0.3
+  reflectedBulletSpeed: 25

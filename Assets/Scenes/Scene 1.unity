@@ -9795,77 +9795,19 @@ MonoBehaviour:
     - name: Explosivo
       prefab: {fileID: 762340031116765458, guid: 560751802baaa2d4094772e51bff16c3, type: 3}
       spawnChance: 1
-  - waveName: 
-    waveDuration: 0
-    spawnInterval: 0
-    waveEnemies: []
+  - waveName: Oleada 3
+    waveDuration: 10
+    spawnInterval: 1
+    waveEnemies:
+    - name: Elite
+      prefab: {fileID: 3070399501935489979, guid: cac8a00f416e9284dab82decbebe9bd5, type: 3}
+      spawnChance: 1
   minBounds: {x: 0, y: 0}
   maxBounds: {x: 30, y: 30}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
   checkRadius: 0.5
---- !u!1001 &1683313832222677677
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1127819216482502716, guid: 39de96f6fb786b141a55e283a7ce2715, type: 3}
-      propertyPath: m_Name
-      value: Bloque
-      objectReference: {fileID: 0}
-    - target: {fileID: 4628819584597406640, guid: 39de96f6fb786b141a55e283a7ce2715, type: 3}
-      propertyPath: m_SpriteSortPoint
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7803949099915405901, guid: 39de96f6fb786b141a55e283a7ce2715, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 11.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 7803949099915405901, guid: 39de96f6fb786b141a55e283a7ce2715, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 7.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 7803949099915405901, guid: 39de96f6fb786b141a55e283a7ce2715, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7803949099915405901, guid: 39de96f6fb786b141a55e283a7ce2715, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7803949099915405901, guid: 39de96f6fb786b141a55e283a7ce2715, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7803949099915405901, guid: 39de96f6fb786b141a55e283a7ce2715, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7803949099915405901, guid: 39de96f6fb786b141a55e283a7ce2715, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7803949099915405901, guid: 39de96f6fb786b141a55e283a7ce2715, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7803949099915405901, guid: 39de96f6fb786b141a55e283a7ce2715, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7803949099915405901, guid: 39de96f6fb786b141a55e283a7ce2715, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 39de96f6fb786b141a55e283a7ce2715, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -9873,6 +9815,5 @@ SceneRoots:
   - {fileID: 902732959}
   - {fileID: 1541942220}
   - {fileID: 1035755666}
-  - {fileID: 1683313832222677677}
   - {fileID: 1720848063}
   - {fileID: 622204480}

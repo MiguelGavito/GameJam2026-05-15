@@ -11,6 +11,10 @@ public class Bullet : MonoBehaviour
 
     public float explosionDuration = 0.3f;
 
+    [Header("Knockback")]
+    public float knockbackForce = 15f; 
+    public float knockbackDuration = 0.15f;
+
     [Header("Movement")]
     public float reflectedBulletSpeed = 25f;
 
@@ -105,6 +109,11 @@ public class Bullet : MonoBehaviour
 
         Debug.Log("BOOM");
 
+        if (CameraFollow.instance != null)
+        {
+            CameraFollow.instance.TriggerShake(0.2f, 0.4f); 
+        }
+
         // Desactivar colisión
         bulletCollider.enabled = false;
 
@@ -131,6 +140,22 @@ public class Bullet : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
+            }
+
+            KnockBackReceiver knockback = hit.GetComponent<KnockBackReceiver>();
+            if (knockback != null)
+            {
+                Vector2 pushDirection = (hit.transform.position - transform.position).normalized;
+                
+                // --- MODIFICADO: Sumpamos el bonus de knockback ---
+                float finalForce = knockbackForce;
+                if (UpgradeManager.instance != null)
+                {
+                    finalForce += UpgradeManager.instance.bonusKnockback;
+                }
+
+                knockback.ApplyKnockback(pushDirection, finalForce, knockbackDuration);
+                // --------------------------------------------------
             }
 
             // Daño jugador

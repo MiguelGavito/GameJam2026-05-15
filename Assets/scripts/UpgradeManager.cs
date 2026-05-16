@@ -29,7 +29,7 @@ public class UpgradeManager : MonoBehaviour
     public float bonusDamage = 0f;
     public float bonusKnockback = 0f;
     public float bonusMoveSpeed = 0f;
-    public float bonusEnemySpeed = 0f; // NUEVA: Variable para guardar la furia enemiga
+    public float bonusEnemySpeed = 0f;
     public float bonusCooldownReduction = 0f;
 
     private List<UpgradeType> currentOptions = new List<UpgradeType>();

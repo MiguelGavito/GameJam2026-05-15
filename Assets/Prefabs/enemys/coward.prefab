@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 3161837902118289392}
   - component: {fileID: 7687372312884446002}
   - component: {fileID: -3823496869220623877}
-  - component: {fileID: 2083464583016892267}
+  - component: {fileID: 167706154014086781}
   m_Layer: 0
-  m_Name: Enemy3
+  m_Name: coward
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.67161995, g: 0.4078431, b: 0.9529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -110,7 +110,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -182,7 +182,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 100
   currentHealth: 0
---- !u!114 &2083464583016892267
+  explodeOnHit: 0
+  reflectBullets: 1
+  regenRate: 10
+  regenDelay: 3
+--- !u!114 &167706154014086781
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,10 +195,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3070399501935489979}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2d61f5b3da3a93409aa9a9bb388d332, type: 3}
+  m_Script: {fileID: 11500000, guid: 61f024bc9d2b10446b94fee1c92fc279, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyOrbiter
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyCoward
   speed: 3
-  stopDistance: 2
-  orbitStrength: 2
+  stopDistance: 1.5
+  fleeHealth: 30
   damagePerSecond: 10

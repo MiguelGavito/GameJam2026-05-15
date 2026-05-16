@@ -4,11 +4,8 @@ public class Bullet : MonoBehaviour
 {
     [Header("Explosion")]
     public float explosionRadius = 3f;
-
     public float damage = 40f;
-
     public float timer = 2f;
-
     public float explosionDuration = 0.3f;
 
     [Header("Knockback")]
@@ -25,80 +22,60 @@ public class Bullet : MonoBehaviour
     private bool exploded = false;
 
     private SpriteRenderer spriteRenderer;
-
     private Collider2D bulletCollider;
-
     private Rigidbody2D rb;
 
     void Start()
     {
-        spriteRenderer =
-            GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        bulletCollider = GetComponent<Collider2D>();
+        rb = GetComponent<Rigidbody2D>();
+        
+         // 🔥 REGISTRO EN MANAGER
+     BulletManager.Instance.RegisterBullet(this);
 
-        bulletCollider =
-            GetComponent<Collider2D>();
-
-        rb =
-            GetComponent<Rigidbody2D>();
-
-        // Explosión automática
         Invoke(nameof(Explode), timer);
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+
+    // 🔥 CAMBIO IMPORTANTE: COLLISION en vez de TRIGGER
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        // Ignorar player
-        if (collision.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
             return;
 
-        EnemyHealth enemy =
-            collision.GetComponent<EnemyHealth>();
+        EnemyHealth enemy = collision.collider.GetComponent<EnemyHealth>();
 
         if (enemy != null)
         {
-            // REBOTAR bala
+            Debug.Log("TOUCHED ENEMY");
+
             if (enemy.reflectBullets)
             {
-                ReflectBullet();
-
+                ReflectBullet(collision);
                 return;
             }
 
-            // EXPLOTAR instantáneamente
             if (enemy.explodeOnHit)
             {
+                Debug.Log("EXPLODING");
                 Explode();
-
                 return;
             }
         }
     }
 
-    void ReflectBullet()
+    void ReflectBullet(Collision2D collision)
     {
-        GameObject player =
-            GameObject.FindGameObjectWithTag("Player");
+        Vector2 normal = collision.contacts[0].normal;
 
-        if (player == null)
-            return;
+        Vector2 newDir = Vector2.Reflect(rb.linearVelocity.normalized, normal);
 
-        Vector2 direction =
-            ((Vector2)player.transform.position
-            - rb.position).normalized;
+        rb.linearVelocity = newDir * reflectedBulletSpeed;
 
-        // Hacer más rápida
-        rb.linearVelocity =
-            direction * reflectedBulletSpeed;
+        float angle = Mathf.Atan2(newDir.y, newDir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
-        // Rotar visualmente
-        float angle =
-            Mathf.Atan2(direction.y, direction.x)
-            * Mathf.Rad2Deg;
-
-        transform.rotation =
-            Quaternion.Euler(0f, 0f, angle);
-
-        // Cambiar color visual
         spriteRenderer.color = Color.cyan;
 
         Debug.Log("BULLET REFLECTED");
@@ -139,7 +116,6 @@ public class Bullet : MonoBehaviour
         // Desactivar colisión
         bulletCollider.enabled = false;
 
-        // Cambiar color
         spriteRenderer.color = Color.red;
 
         // Expandir visualmente
@@ -150,7 +126,6 @@ public class Bullet : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            // Daño enemigo
             EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
             if (enemy != null)
             {
@@ -180,23 +155,30 @@ public class Bullet : MonoBehaviour
             }
         }
 
-        // Detener movimiento
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
         }
 
-        // Destruir después
         Destroy(gameObject, explosionDuration);
     }
 
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-
-        Gizmos.DrawWireSphere(
-            transform.position,
-            explosionRadius
-        );
+        Gizmos.DrawWireSphere(transform.position, explosionRadius);
     }
+
+    public void ForceExplode()
+{
+    Explode();
+}
+
+    void OnDestroy()
+{
+    if (BulletManager.Instance != null)
+        BulletManager.Instance.UnregisterBullet(this);
+}
+
+    
 }

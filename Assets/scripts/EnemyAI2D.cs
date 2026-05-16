@@ -2,42 +2,38 @@ using UnityEngine;
 
 public class EnemyAI2D : MonoBehaviour
 {
-    [Header("References")]
-    public Transform player;
-
-    private PlayerHealth playerHealth;
-
     [Header("Movement")]
     public float speed = 3f;
     public float stopDistance = 1.5f;
 
+    private Transform player;
+    private PlayerHealth playerHealth;
     private Rigidbody2D rb;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
-        // Obtener script de vida del jugador
-        playerHealth = player.GetComponent<PlayerHealth>();
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+            playerHealth = playerObject.GetComponent<PlayerHealth>();
+        }
+        else
+        {
+            Debug.LogError("No se encontró ningún objeto con la etiqueta 'Player' en la escena.");
+        }
     }
 
     void FixedUpdate()
     {
-        if (player == null)
-        {
-            Debug.Log("PLAYER NOT ASSIGNED");
-            return;
-        }
+        if (player == null) return;
 
-        // Dirección hacia jugador
-        Vector2 direction =
-            ((Vector2)player.position - rb.position).normalized;
+        Vector2 direction = ((Vector2)player.position - rb.position).normalized;
+        float distance = Vector2.Distance(rb.position, player.position);
 
-        // Distancia al jugador
-        float distance =
-            Vector2.Distance(rb.position, player.position);
-
-        // Perseguir jugador
         if (distance > stopDistance)
         {
             rb.linearVelocity = direction * speed;
@@ -45,7 +41,6 @@ public class EnemyAI2D : MonoBehaviour
         else
         {
             rb.linearVelocity = Vector2.zero;
-
             Attack();
         }
     }
@@ -54,13 +49,7 @@ public class EnemyAI2D : MonoBehaviour
     {
         if (playerHealth != null)
         {
-            // Daño por segundo
             playerHealth.TakeDamage(10f * Time.deltaTime);
-
-            Debug.Log("Enemy attacking");
         }
     }
 }
-
-
-//final

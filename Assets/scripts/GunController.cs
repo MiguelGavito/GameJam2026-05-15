@@ -2,35 +2,55 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
-    [Header("Bullet")]
+    [Header("References")]
     public GameObject bulletPrefab;
 
     public Transform firePoint;
 
+    [Header("Shooting")]
     public float bulletSpeed = 15f;
 
-    [Header("Mouse")]
-    public bool mouseUnlocked = false;
+    public float fireCooldown = 0.5f;
+
+    public int bulletsPerShot = 1;
+
+    public float spreadAngle = 10f;
+
+    [Header("Recoil")]
+    public float recoilForce = 5f;
+
+    private float nextFireTime;
+
+    private Rigidbody2D playerRb;
+
+    void Start()
+    {
+        playerRb =
+            GetComponentInParent<Rigidbody2D>();
+
+        Cursor.visible = true;
+    }
 
     void Update()
     {
         AimAtMouse();
 
         Shoot();
-
-        ToggleMouse();
     }
 
     void AimAtMouse()
     {
         Vector3 mousePosition =
-            Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Camera.main.ScreenToWorldPoint(
+                Input.mousePosition
+            );
 
         Vector2 direction =
             mousePosition - transform.position;
 
         float angle =
-            Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Mathf.Atan2(direction.y, direction.x)
+            * Mathf.Rad2Deg;
 
         transform.rotation =
             Quaternion.Euler(0f, 0f, angle);
@@ -38,39 +58,65 @@ public class GunController : MonoBehaviour
 
     void Shoot()
     {
-        if (Input.GetMouseButtonDown(1))
+        // Cooldown
+        if (Time.time < nextFireTime)
+            return;
+
+        // Click izquierdo
+        if (Input.GetMouseButtonDown(0))
         {
-            GameObject bullet =
-                Instantiate(
-                    bulletPrefab,
-                    firePoint.position,
-                    firePoint.rotation
-                );
+            nextFireTime =
+                Time.time + fireCooldown;
 
-            Rigidbody2D rb =
-                bullet.GetComponent<Rigidbody2D>();
+            // Disparar múltiples balas
+            for (int i = 0; i < bulletsPerShot; i++)
+            {
+                // Spread aleatorio
+                float randomAngle =
+                    Random.Range(
+                        -spreadAngle,
+                        spreadAngle
+                    );
 
-            rb.linearVelocity =
-                firePoint.right * bulletSpeed;
+                Quaternion spreadRotation =
+                    firePoint.rotation *
+                    Quaternion.Euler(
+                        0f,
+                        0f,
+                        randomAngle
+                    );
+
+                GameObject bullet =
+                    Instantiate(
+                        bulletPrefab,
+                        firePoint.position,
+                        spreadRotation
+                    );
+
+                Rigidbody2D bulletRb =
+                    bullet.GetComponent<Rigidbody2D>();
+
+                bulletRb.linearVelocity =
+                    bullet.transform.right
+                    * bulletSpeed;
+            }
+
+            ApplyRecoil();
         }
     }
 
-    void ToggleMouse()
+    void ApplyRecoil()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            mouseUnlocked = !mouseUnlocked;
+        if (playerRb == null)
+            return;
 
-            if (mouseUnlocked)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-        }
+        // Dirección opuesta al arma
+        Vector2 recoilDirection =
+            -firePoint.right;
+
+        playerRb.AddForce(
+            recoilDirection * recoilForce,
+            ForceMode2D.Impulse
+        );
     }
 }

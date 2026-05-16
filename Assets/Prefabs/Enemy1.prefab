@@ -182,6 +182,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 100
   currentHealth: 0
+  explodeOnHit: 1
+  reflectBullets: 0
+  regenRate: 10
+  regenDelay: 3
 --- !u!114 &1664260793234936229
 MonoBehaviour:
   m_ObjectHideFlags: 0

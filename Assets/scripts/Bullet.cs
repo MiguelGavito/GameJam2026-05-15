@@ -11,19 +11,29 @@ public class Bullet : MonoBehaviour
 
     public float explosionDuration = 0.3f;
 
+    [Header("Movement")]
+    public float reflectedBulletSpeed = 25f;
+
     private bool exploded = false;
 
     private SpriteRenderer spriteRenderer;
 
     private Collider2D bulletCollider;
 
+    private Rigidbody2D rb;
+
     void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer =
+            GetComponent<SpriteRenderer>();
 
-        bulletCollider = GetComponent<Collider2D>();
+        bulletCollider =
+            GetComponent<Collider2D>();
 
-        // Explota después del tiempo
+        rb =
+            GetComponent<Rigidbody2D>();
+
+        // Explosión automática
         Invoke(nameof(Explode), timer);
     }
 
@@ -33,11 +43,57 @@ public class Bullet : MonoBehaviour
         if (collision.CompareTag("Player"))
             return;
 
-        // Explota al tocar enemigo
-        if (collision.GetComponent<EnemyHealth>() != null)
+        EnemyHealth enemy =
+            collision.GetComponent<EnemyHealth>();
+
+        if (enemy != null)
         {
-            Explode();
+            // REBOTAR bala
+            if (enemy.reflectBullets)
+            {
+                ReflectBullet();
+
+                return;
+            }
+
+            // EXPLOTAR instantáneamente
+            if (enemy.explodeOnHit)
+            {
+                Explode();
+
+                return;
+            }
         }
+    }
+
+    void ReflectBullet()
+    {
+        GameObject player =
+            GameObject.FindGameObjectWithTag("Player");
+
+        if (player == null)
+            return;
+
+        Vector2 direction =
+            ((Vector2)player.transform.position
+            - rb.position).normalized;
+
+        // Hacer más rápida
+        rb.linearVelocity =
+            direction * reflectedBulletSpeed;
+
+        // Rotar visualmente
+        float angle =
+            Mathf.Atan2(direction.y, direction.x)
+            * Mathf.Rad2Deg;
+
+        transform.rotation =
+            Quaternion.Euler(0f, 0f, angle);
+
+        // Cambiar color visual
+        spriteRenderer.color = Color.cyan;
+
+        Debug.Log("BULLET REFLECTED");
     }
 
     void Explode()
@@ -49,13 +105,13 @@ public class Bullet : MonoBehaviour
 
         Debug.Log("BOOM");
 
-        // Quitar colisión física
+        // Desactivar colisión
         bulletCollider.enabled = false;
 
         // Cambiar color
         spriteRenderer.color = Color.red;
 
-        // Hacer grande visualmente
+        // Expandir visualmente
         transform.localScale =
             Vector3.one * explosionRadius;
 
@@ -88,14 +144,12 @@ public class Bullet : MonoBehaviour
         }
 
         // Detener movimiento
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
         }
 
-        // Destruir después de animación
+        // Destruir después
         Destroy(gameObject, explosionDuration);
     }
 

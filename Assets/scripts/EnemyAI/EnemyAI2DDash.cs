@@ -30,6 +30,12 @@ public class EnemyDasher : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
+        if (UpgradeManager.instance != null)
+        {
+            moveSpeed += UpgradeManager.instance.bonusEnemySpeed;
+            dashSpeed += UpgradeManager.instance.bonusEnemySpeed;
+        }
+
         GameObject playerObject =
             GameObject.FindGameObjectWithTag("Player");
 

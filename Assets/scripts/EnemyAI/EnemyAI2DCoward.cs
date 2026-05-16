@@ -36,6 +36,11 @@ public class EnemyCoward : MonoBehaviour
             playerHealth =
                 playerObject.GetComponent<PlayerHealth>();
         }
+
+        if (UpgradeManager.instance != null)
+        {
+            speed += UpgradeManager.instance.bonusEnemySpeed;
+        }
     }
 
     void FixedUpdate()

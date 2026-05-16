@@ -18,6 +18,10 @@ public class Bullet : MonoBehaviour
     [Header("Movement")]
     public float reflectedBulletSpeed = 25f;
 
+    [Header("Screen Shake (Base)")]
+    public float baseShakeMagnitude = 0.15f;
+    public float baseShakeDuration = 0.15f;
+
     private bool exploded = false;
 
     private SpriteRenderer spriteRenderer;
@@ -109,10 +113,28 @@ public class Bullet : MonoBehaviour
 
         Debug.Log("BOOM");
 
+        // --- NUEVA LÓGICA DE SCREEN SHAKE PROGRESIVO ---
         if (CameraFollow.instance != null)
         {
-            CameraFollow.instance.TriggerShake(0.2f, 0.4f); 
+            float finalMagnitude = baseShakeMagnitude;
+            float finalDuration = baseShakeDuration;
+
+            if (UpgradeManager.instance != null)
+            {
+                // Calculamos cuántos "niveles" de mejora tiene el jugador basándonos en los incrementos que definimos antes
+                float damageUpgradesCount = UpgradeManager.instance.bonusDamage / 20f;
+                float radiusUpgradesCount = UpgradeManager.instance.bonusExplosionRadius / 1.2f;
+
+                // Cada nivel de daño o radio añade un poco más de violencia al temblor (+0.04 de magnitud)
+                finalMagnitude += (damageUpgradesCount * 0.04f) + (radiusUpgradesCount * 0.04f);
+                
+                // Las explosiones más grandes también duran un par de milisegundos más
+                finalDuration += (radiusUpgradesCount * 0.02f);
+            }
+
+            CameraFollow.instance.TriggerShake(finalDuration, finalMagnitude); 
         }
+        // -----------------------------------------------
 
         // Desactivar colisión
         bulletCollider.enabled = false;
@@ -121,33 +143,26 @@ public class Bullet : MonoBehaviour
         spriteRenderer.color = Color.red;
 
         // Expandir visualmente
-        transform.localScale =
-            Vector3.one * explosionRadius;
+        transform.localScale = Vector3.one * explosionRadius;
 
         // Buscar objetos dentro del radio
-        Collider2D[] hits =
-            Physics2D.OverlapCircleAll(
-                transform.position,
-                explosionRadius
-            );
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, explosionRadius);
 
         foreach (Collider2D hit in hits)
         {
             // Daño enemigo
-            EnemyHealth enemy =
-                hit.GetComponent<EnemyHealth>();
-
+            EnemyHealth enemy = hit.GetComponent<EnemyHealth>();
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
             }
 
+            // Knockback
             KnockBackReceiver knockback = hit.GetComponent<KnockBackReceiver>();
             if (knockback != null)
             {
                 Vector2 pushDirection = (hit.transform.position - transform.position).normalized;
                 
-                // --- MODIFICADO: Sumpamos el bonus de knockback ---
                 float finalForce = knockbackForce;
                 if (UpgradeManager.instance != null)
                 {
@@ -155,13 +170,10 @@ public class Bullet : MonoBehaviour
                 }
 
                 knockback.ApplyKnockback(pushDirection, finalForce, knockbackDuration);
-                // --------------------------------------------------
             }
 
             // Daño jugador
-            PlayerHealth player =
-                hit.GetComponent<PlayerHealth>();
-
+            PlayerHealth player = hit.GetComponent<PlayerHealth>();
             if (player != null)
             {
                 player.TakeDamage(damage);

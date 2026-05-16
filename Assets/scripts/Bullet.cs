@@ -9,11 +9,21 @@ public class Bullet : MonoBehaviour
 
     public float timer = 2f;
 
+    public float explosionDuration = 0.3f;
+
     private bool exploded = false;
+
+    private SpriteRenderer spriteRenderer;
+
+    private Collider2D bulletCollider;
 
     void Start()
     {
-        // Explota automáticamente después de tiempo
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        bulletCollider = GetComponent<Collider2D>();
+
+        // Explota después del tiempo
         Invoke(nameof(Explode), timer);
     }
 
@@ -23,7 +33,7 @@ public class Bullet : MonoBehaviour
         if (collision.CompareTag("Player"))
             return;
 
-        // Si toca enemigo → explotar
+        // Explota al tocar enemigo
         if (collision.GetComponent<EnemyHealth>() != null)
         {
             Explode();
@@ -39,7 +49,17 @@ public class Bullet : MonoBehaviour
 
         Debug.Log("BOOM");
 
-        // Buscar TODO dentro del radio
+        // Quitar colisión física
+        bulletCollider.enabled = false;
+
+        // Cambiar color
+        spriteRenderer.color = Color.red;
+
+        // Hacer grande visualmente
+        transform.localScale =
+            Vector3.one * explosionRadius;
+
+        // Buscar objetos dentro del radio
         Collider2D[] hits =
             Physics2D.OverlapCircleAll(
                 transform.position,
@@ -48,7 +68,7 @@ public class Bullet : MonoBehaviour
 
         foreach (Collider2D hit in hits)
         {
-            // Daño a enemigos
+            // Daño enemigo
             EnemyHealth enemy =
                 hit.GetComponent<EnemyHealth>();
 
@@ -57,7 +77,7 @@ public class Bullet : MonoBehaviour
                 enemy.TakeDamage(damage);
             }
 
-            // Daño al jugador
+            // Daño jugador
             PlayerHealth player =
                 hit.GetComponent<PlayerHealth>();
 
@@ -67,10 +87,18 @@ public class Bullet : MonoBehaviour
             }
         }
 
-        Destroy(gameObject);
+        // Detener movimiento
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+        }
+
+        // Destruir después de animación
+        Destroy(gameObject, explosionDuration);
     }
 
-    // Ver radio en editor
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

@@ -4,7 +4,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public float maxHealth = 100f;
 
-    private float currentHealth;
+    public float currentHealth;
 
     private bool dead = false;
 

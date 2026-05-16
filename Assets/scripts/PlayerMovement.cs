@@ -11,21 +11,37 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        Cursor.visible = true;
     }
 
     void Update()
     {
-        // INPUT WASD
+        // Movimiento WASD
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
-        // Normalizar para evitar velocidad diagonal exagerada
         movement = movement.normalized;
+
+        RotateToMouse();
     }
 
     void FixedUpdate()
     {
-        // MOVER JUGADOR
         rb.linearVelocity = movement * moveSpeed;
+    }
+
+    void RotateToMouse()
+    {
+        Vector3 mousePos =
+            Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        Vector2 direction =
+            mousePos - transform.position;
+
+        float angle =
+            Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        rb.rotation = angle;
     }
 }

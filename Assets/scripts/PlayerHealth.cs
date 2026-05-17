@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -8,11 +9,22 @@ public class PlayerHealth : MonoBehaviour
 
     private bool isDead = false;
 
+    public Image healthFill; 
+
+
     void Start()
     {
         currentHealth = maxHealth;
+        UpdateUI();
 
         Debug.Log("Player HP: " + currentHealth);
+    }
+    void UpdateUI()
+    {
+        if (healthFill != null)
+        {
+            healthFill.fillAmount = currentHealth / maxHealth;
+        }
     }
 
     public void TakeDamage(float damage)
@@ -29,6 +41,7 @@ public class PlayerHealth : MonoBehaviour
             currentHealth = 0;
         }
 
+        UpdateUI();
         Debug.Log("Player HP: " + currentHealth);
 
         // Morir

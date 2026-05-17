@@ -23,7 +23,10 @@ public class PauseMenu : MonoBehaviour
         volumeSlider.value = volume;
         volumeSlider.onValueChanged.AddListener(ChangeVolume);
 
-        AudioManager.Instance.SetVolume(volume);
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.SetVolume(volume);
+        }
     }
 
     private void Update()

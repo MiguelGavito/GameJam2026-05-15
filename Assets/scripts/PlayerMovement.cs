@@ -26,26 +26,10 @@ public class PlayerMovement : MonoBehaviour
         // 🎮 ANIMACIÓN
         float moving = movement != Vector2.zero ? 1f : 0f;
         animator.SetFloat("Moving", moving);
-
-        RotateToMouse();
     }
 
     void FixedUpdate()
     {
         rb.linearVelocity = movement * moveSpeed;
-    }
-
-    void RotateToMouse()
-    {
-        Vector3 mousePos =
-            Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        Vector2 direction =
-            mousePos - transform.position;
-
-        float angle =
-            Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        rb.rotation = angle;
     }
 }

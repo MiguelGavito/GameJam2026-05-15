@@ -409,12 +409,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 278ee90d84574b14fae5c5ab46ab46e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
-  upgradePanel: {fileID: 198857864}
+  upgradePanel: {fileID: 0}
   buttonTexts:
   - {fileID: 841615731}
   - {fileID: 1671963574}
   - {fileID: 14500461}
-  gunController: {fileID: 240977617}
+  gunController: {fileID: 0}
   playerMovement: {fileID: 240977620}
   bonusExplosionRadius: 0
   bonusDamage: 0
@@ -430,10 +430,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 198857865}
-  - component: {fileID: 198857867}
-  - component: {fileID: 198857866}
+  - component: {fileID: 135932265}
   - component: {fileID: 198857868}
+  - component: {fileID: 135932267}
+  - component: {fileID: 135932266}
   m_Layer: 5
   m_Name: Perdiste
   m_TagString: Untagged
@@ -453,7 +453,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1487181018}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -567,7 +567,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 198857864}
+  m_GameObject: {fileID: 135932264}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 337d366e08aeb4a8e82ddeb7ba069b8f, type: 2}
@@ -644,17 +644,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6130541883570536701, guid: dae7bcd269a744ce6affcfe733235f27, type: 3}
   m_PrefabInstance: {fileID: 825981127}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &240977617 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5893928667912639046, guid: dae7bcd269a744ce6affcfe733235f27, type: 3}
-  m_PrefabInstance: {fileID: 825981127}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240977613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46e7ce8956d6dda458e8cdf1ffd1088e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GunController
 --- !u!114 &240977620 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4010509052838628701, guid: dae7bcd269a744ce6affcfe733235f27, type: 3}
@@ -830,7 +819,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 841615730}
-  m_Father: {fileID: 198857865}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1006,11 +995,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7817720302476977465, guid: dae7bcd269a744ce6affcfe733235f27, type: 3}
       propertyPath: m_LocalScale.x
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7817720302476977465, guid: dae7bcd269a744ce6affcfe733235f27, type: 3}
       propertyPath: m_LocalScale.y
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7817720302476977465, guid: dae7bcd269a744ce6affcfe733235f27, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1051,6 +1040,14 @@ PrefabInstance:
     - target: {fileID: 7817720302476977465, guid: dae7bcd269a744ce6affcfe733235f27, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8718602397409965662, guid: dae7bcd269a744ce6affcfe733235f27, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 240977623}
+    - target: {fileID: 8718602397409965662, guid: dae7bcd269a744ce6affcfe733235f27, type: 3}
+      propertyPath: healthFill
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1829,7 +1826,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 14500460}
-  m_Father: {fileID: 198857865}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1962,7 +1959,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1671963573}
-  m_Father: {fileID: 198857865}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2215,10 +2212,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 198857865}
-  - {fileID: 1123484145}
-  - {fileID: 1487181018}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3251,3 +3245,8 @@ SceneRoots:
   - {fileID: 202478982}
   - {fileID: 1367337675}
   - {fileID: 739335884}
+  - {fileID: 99228429}
+  - {fileID: 135932265}
+  - {fileID: 701327239}
+  - {fileID: 1457108151}
+  - {fileID: 1477367298}

@@ -66,15 +66,22 @@ public class EnemyGun : MonoBehaviour
 
     void AimAtPlayer()
     {
-        Vector2 direction =
-            player.position - transform.position;
+        Vector2 direction = player.position - transform.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        float angle =
-            Mathf.Atan2(direction.y, direction.x)
-            * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
-        transform.rotation =
-            Quaternion.Euler(0f, 0f, angle);
+        Vector3 localScale = Vector3.one;
+        if (angle > 90 || angle < -90)
+        {
+            localScale.y = -1f; // Voltea el arma en el eje Y
+        }
+        else
+        {
+            localScale.y = 1f;  // La devuelve a la normalidad
+        }
+        transform.localScale = localScale;
+        // ----------------------------------------------------------
     }
 
     void Shoot()

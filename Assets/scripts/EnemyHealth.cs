@@ -21,6 +21,8 @@ public class EnemyHealth : MonoBehaviour
 
     private bool dead = false;
 
+    public Animator animator;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -42,6 +44,11 @@ public class EnemyHealth : MonoBehaviour
         currentHealth -= damage;
 
         lastDamageTime = Time.time;
+
+        if (animator != null)
+        {
+            animator.SetTrigger("Hurt");
+        }
 
         // Evitar negativos
         if (currentHealth < 0)

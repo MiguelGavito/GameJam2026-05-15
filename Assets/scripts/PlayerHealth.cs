@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -9,7 +11,9 @@ public class PlayerHealth : MonoBehaviour
 
     private bool isDead = false;
 
-    public Image healthFill; 
+    public Image healthFill;
+
+    public GameObject deathPanel;
 
 
     void Start()
@@ -53,6 +57,8 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
+        if (isDead) return;
+
         isDead = true;
 
         Debug.Log("PLAYER DIED");
@@ -68,7 +74,25 @@ public class PlayerHealth : MonoBehaviour
             rb.linearVelocity = Vector2.zero;
         }
 
+        if (deathPanel != null)
+            deathPanel.SetActive(true);
+
         // Pausar TODO el juego
-        Time.timeScale = 0f;
+        StartCoroutine(DeathRoutine());
+    }
+
+
+    IEnumerator DeathRoutine()
+    {
+
+        yield return new WaitForSecondsRealtime(2f);
+
+
+        if (deathPanel != null)
+            deathPanel.SetActive(false);
+
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene("MainMenu");
     }
 }

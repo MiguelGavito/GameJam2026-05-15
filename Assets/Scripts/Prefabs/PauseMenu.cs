@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -24,18 +25,36 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+            return;
+
+
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            if (isPaused)
+            if (confirmExitPanel.activeSelf)
+            {
+                CloseExitConfirm();
+            }
+            else if (optionsPanel.activeSelf)
+            {
+                CloseOptions();
+            }
+            else if (isPaused)
+            {
                 ResumeGame();
+            }
             else
+            {
                 PauseGame();
+            }
         }
     }
 
     public void PauseGame()
     {
         pausePanel.SetActive(true);
+        optionsPanel.SetActive(false);
+        confirmExitPanel.SetActive(false);
 
         Time.timeScale = 0f;
 
@@ -53,6 +72,8 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenOptions()
     {
+        CloseAllSubMenus();
+
         optionsPanel.SetActive(true);
     }
 
@@ -63,6 +84,8 @@ public class PauseMenu : MonoBehaviour
 
     public void OpenExitConfirm()
     {
+        CloseAllSubMenus();
+
         confirmExitPanel.SetActive(true);
     }
 
@@ -89,5 +112,12 @@ public class PauseMenu : MonoBehaviour
     public void DeletePlayerData()
     {
         PlayerPrefs.DeleteAll();
+    }
+
+    public void CloseAllSubMenus()
+    {
+        optionsPanel.SetActive(false);
+
+        confirmExitPanel.SetActive(false);
     }
 }

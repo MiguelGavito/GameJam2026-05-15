@@ -1330,6 +1330,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8718602397409965662, guid: dae7bcd269a744ce6affcfe733235f27, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 240977623}
+    - target: {fileID: 8718602397409965662, guid: dae7bcd269a744ce6affcfe733235f27, type: 3}
+      propertyPath: healthFill
+      value: 
+      objectReference: {fileID: 0}
       propertyPath: maxHealth
       value: 200
       objectReference: {fileID: 0}
@@ -3879,3 +3886,7 @@ SceneRoots:
   - {fileID: 1367337675}
   - {fileID: 739335884}
   - {fileID: 99228429}
+  - {fileID: 135932265}
+  - {fileID: 701327239}
+  - {fileID: 1457108151}
+  - {fileID: 1477367298}

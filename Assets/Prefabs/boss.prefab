@@ -16,9 +16,11 @@ GameObject:
   - component: {fileID: 4916601722308585475}
   - component: {fileID: 5685329368366057387}
   - component: {fileID: 2779562588411465555}
+  - component: {fileID: -8353495655613862590}
+  - component: {fileID: 1339405896790675136}
   m_Layer: 0
   m_Name: boss
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,7 +90,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 674d24fcd17771f4386d41e523732824, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -124,7 +126,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &1791695681909472805
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -163,7 +165,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2, y: 2}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -183,12 +185,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e58d02b1b24164ea09f191f0034315e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossAI
-  player: {fileID: 0}
+  bossGun: {fileID: 0}
+  bossDash: {fileID: 0}
+  bossHealth: {fileID: 0}
   moveSpeed: 4
   preferredDistance: 8
+  tooCloseDistance: 4
   strafeSpeed: 3
-  dashForce: 20
-  dashCooldown: 4
+  prepMoveSpeed: 1.2
+  prepDuration: 1
+  orbitMinTime: 1.5
+  orbitMaxTime: 2.8
+  repositionTime: 1.2
+  idleMinTime: 0.3
+  idleMaxTime: 0.7
 --- !u!114 &4916601722308585475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +215,7 @@ MonoBehaviour:
   dashForce: 30
   dashDuration: 0.2
   dashCooldown: 3
-  stopAfterDash: 1
+  dashTrail: {fileID: 0}
 --- !u!114 &5685329368366057387
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,9 +237,15 @@ MonoBehaviour:
   burstDelay: 0.12
   bulletsPerShot: 5
   spreadAngle: 20
+  rotationSpeed: 4
+  aimHoldRequired: 0.8
+  aimTolerance: 6
+  maxShootDistance: 14
+  isMovingFast: 0
   enableRadialAttack: 1
   radialBulletCount: 20
   radialCooldown: 8
+  shotPredictionTime: 0.22
 --- !u!114 &2779562588411465555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,10 +262,46 @@ MonoBehaviour:
   currentHealth: 0
   phase2: 0
   phase3: 0
+  enraged: 0
   phase2Percent: 0.7
   phase3Percent: 0.3
+  enragedPercent: 0.15
   bossGun: {fileID: 0}
   bossDash: {fileID: 0}
+--- !u!114 &-8353495655613862590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598207501343857140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae6cd3aa404c904c919d4e185037c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyVisuals
+--- !u!95 &1339405896790675136
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2598207501343857140}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c1e74391a1f489a42b35f4c8daf30441, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8459703335566251268
 GameObject:
   m_ObjectHideFlags: 0

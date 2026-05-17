@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 3937389382628012052}
   - component: {fileID: 1664260793234936229}
   - component: {fileID: 3036875545280506421}
+  - component: {fileID: 7136848730471822254}
+  - component: {fileID: -1405407424070257152}
   m_Layer: 6
   m_Name: random
   m_TagString: Enemy
@@ -87,7 +89,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 674d24fcd17771f4386d41e523732824, type: 3}
-  m_Color: {r: 0, g: 0.72601163, b: 1, a: 1}
+  m_Color: {r: 0.6038772, g: 1, b: 0.54905653, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -187,6 +189,7 @@ MonoBehaviour:
   reflectBullets: 0
   regenRate: 10
   regenDelay: 3
+  animator: {fileID: 0}
 --- !u!114 &1664260793234936229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,3 +218,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 875e8a412c0134b479be0cf1fdaad5dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KnockbackReceiver
+--- !u!95 &7136848730471822254
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3656137939779678922}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c1e74391a1f489a42b35f4c8daf30441, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-1405407424070257152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3656137939779678922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dae6cd3aa404c904c919d4e185037c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyVisuals

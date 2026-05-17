@@ -11,9 +11,11 @@ public class PlayerHealth : MonoBehaviour
 
     private bool isDead = false;
 
+    public Animator animator;
     public Image healthFill;
 
     public GameObject deathPanel;
+
 
 
     void Start()
@@ -39,6 +41,11 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth -= damage;
 
+        if (animator != null)
+        {
+            animator.SetTrigger("Hurt");
+        }
+
         // Evitar negativos
         if (currentHealth < 0)
         {
@@ -52,7 +59,7 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth <= 0)
         {
             Die();
-        }
+        }      
     }
 
     void Die()

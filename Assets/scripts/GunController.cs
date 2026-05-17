@@ -41,22 +41,20 @@ public class GunController : MonoBehaviour
 
     void AimAtMouse()
     {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = mousePosition - transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Vector3 mousePosition =
+            Camera.main.ScreenToWorldPoint(
+                Input.mousePosition
+            );
 
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        Vector2 direction =
+            mousePosition - transform.position;
 
-        Vector3 localScale = Vector3.one;
-        if (angle > 90 || angle < -90)
-        {
-            localScale.y = -1f;
-        }
-        else
-        {
-            localScale.y = 1f;
-        }
-        transform.localScale = localScale;
+        float angle =
+            Mathf.Atan2(direction.y, direction.x)
+            * Mathf.Rad2Deg;
+
+        transform.rotation =
+            Quaternion.Euler(0f, 0f, angle);
     }
 
     void Shoot()

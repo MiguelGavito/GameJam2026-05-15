@@ -24,12 +24,14 @@ public class Bullet : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Collider2D bulletCollider;
     private Rigidbody2D rb;
+    private Animator animator;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         bulletCollider = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         
          // 🔥 REGISTRO EN MANAGER
      BulletManager.Instance.RegisterBullet(this);
@@ -123,7 +125,10 @@ public class Bullet : MonoBehaviour
         // Desactivar colisión
         bulletCollider.enabled = false;
 
-        spriteRenderer.color = Color.red;
+        if (animator != null)
+        {
+            animator.SetTrigger("Explode");
+        }
 
         // Expandir visualmente
         transform.localScale = Vector3.one * explosionRadius;

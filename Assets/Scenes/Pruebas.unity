@@ -119,6 +119,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &50768149 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3283946890336207498, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
+  m_PrefabInstance: {fileID: 823826642909775757}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c733711c97af59d40b979e2f3ff17324, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
 --- !u!1 &98096802
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,9 +354,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1502374036605221376, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1502374036605221376, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1502374036605221376, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 50768149}
+    - target: {fileID: 1502374036605221376, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1502374036605221376, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeVolume
+      objectReference: {fileID: 0}
+    - target: {fileID: 1502374036605221376, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1502374036605221376, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4213467719279170132, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
       propertyPath: m_Name
       value: PauseMenuCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4498699231280228558, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5543330303463887700, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7289456206675965259, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
       propertyPath: m_Pivot.x
@@ -425,6 +472,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7289456206675965259, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8970897950737449629, guid: 476ebc2d705e51c4dae23eff37fb1541, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

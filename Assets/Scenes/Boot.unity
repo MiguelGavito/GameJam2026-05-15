@@ -271,6 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39d03099b6dc4b341b34854e9ea40520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  currentScore: 0
 --- !u!4 &1071376575
 Transform:
   m_ObjectHideFlags: 0
@@ -315,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c582a946d8e4904f92b620a543ede9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveManager
+  highScore: 0
 --- !u!4 &1118487506
 Transform:
   m_ObjectHideFlags: 0
@@ -360,6 +362,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fa2c5ebb1d7e3446ac2b50ce3ff2113, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  introSource: {fileID: 1701197418}
+  loopSource: {fileID: 1701197418}
+  menuLoop: {fileID: 8300000, guid: 4345612cd73f7134091bd6837686c08b, type: 3}
+  gameplayIntro: {fileID: 8300000, guid: 0942f12f263934b41b406665acc4ec15, type: 3}
+  gameplayLoop: {fileID: 8300000, guid: a6da5d1ddd5dd0b4ebe72b91124e59e4, type: 3}
 --- !u!82 &1701197418
 AudioSource:
   m_ObjectHideFlags: 0
@@ -372,10 +379,10 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

@@ -18,9 +18,12 @@ public class PauseMenu : MonoBehaviour
         pausePanel.SetActive(false);
 
         float volume = PlayerPrefs.GetFloat("VOLUME", 1f);
-        volumeSlider.value = volume;
 
-        AudioListener.volume = volume;
+        volumeSlider.onValueChanged.RemoveAllListeners();
+        volumeSlider.value = volume;
+        volumeSlider.onValueChanged.AddListener(ChangeVolume);
+
+        AudioManager.Instance.SetVolume(volume);
     }
 
     private void Update()
@@ -103,7 +106,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ChangeVolume(float value)
     {
-        AudioListener.volume = value;
+        AudioManager.Instance.SetVolume(value);
 
         PlayerPrefs.SetFloat("VOLUME", value);
         PlayerPrefs.Save();

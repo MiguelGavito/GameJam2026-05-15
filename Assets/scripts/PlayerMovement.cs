@@ -8,10 +8,17 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 movement;
 
     public Animator animator;
+    
+    // NUEVO: Referencia al dibujo del jugador
+    private SpriteRenderer spriteRenderer; 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        
+        // Obtenemos el componente al iniciar el juego
+        spriteRenderer = GetComponent<SpriteRenderer>(); 
+        
         Cursor.visible = true;
     }
 
@@ -23,29 +30,28 @@ public class PlayerMovement : MonoBehaviour
 
         movement = movement.normalized;
 
-        // 🎮 ANIMACIÓN
-        // float moving = movement != Vector2.zero ? 1f : 0f;
-        // animator.SetFloat("Moving", moving);
+        // --- NUEVO: Lógica de volteo (Flip) ---
+        // Si nos movemos a la izquierda (negativo), volteamos el sprite
+        if (movement.x < 0)
+        {
+            spriteRenderer.flipX = false;
+        }
+        // Si nos movemos a la derecha (positivo), lo regresamos a la normalidad
+        else if (movement.x > 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        // Nota: No ponemos "else" a secas para que si el jugador se detiene (movement.x == 0), 
+        // mantenga la última dirección a la que estaba mirando.
+        // ------------------------------------
 
-        RotateToMouse();
+        // 🎮 ANIMACIÓN
+        float moving = movement != Vector2.zero ? 1f : 0f;
+        animator.SetFloat("Moving", moving);
     }
 
     void FixedUpdate()
     {
         rb.linearVelocity = movement * moveSpeed;
-    }
-
-    void RotateToMouse()
-    {
-        Vector3 mousePos =
-            Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        Vector2 direction =
-            mousePos - transform.position;
-
-        float angle =
-            Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        rb.rotation = angle;
     }
 }

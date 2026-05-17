@@ -33,6 +33,7 @@ public class GunController : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0f) return;
         AimAtMouse();
 
         Shoot();
@@ -58,47 +59,37 @@ public class GunController : MonoBehaviour
 
     void Shoot()
     {
-        // Cooldown
+    // Cooldown modificado por la mejora
+        float actualCooldown = fireCooldown;
+        if (UpgradeManager.instance != null)
+        {
+        // Reducimos el cooldown, pero ponemos un límite mínimo (ej: 0.05s) para que no sea infinito
+            actualCooldown = Mathf.Max(0.05f, fireCooldown - UpgradeManager.instance.bonusCooldownReduction);
+        }
+
         if (Time.time < nextFireTime)
             return;
 
-        // Click izquierdo
         if (Input.GetMouseButtonDown(0))
         {
-            nextFireTime =
-                Time.time + fireCooldown;
+            nextFireTime = Time.time + actualCooldown;
 
-            // Disparar múltiples balas
             for (int i = 0; i < bulletsPerShot; i++)
             {
-                // Spread aleatorio
-                float randomAngle =
-                    Random.Range(
-                        -spreadAngle,
-                        spreadAngle
-                    );
+                float randomAngle = Random.Range(-spreadAngle, spreadAngle);
+                Quaternion spreadRotation = firePoint.rotation * Quaternion.Euler(0f, 0f, randomAngle);
 
-                Quaternion spreadRotation =
-                    firePoint.rotation *
-                    Quaternion.Euler(
-                        0f,
-                        0f,
-                        randomAngle
-                    );
+                GameObject bullet = Instantiate(bulletPrefab, firePoint.position, spreadRotation);
+                Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+                bulletRb.linearVelocity = bullet.transform.right * bulletSpeed;
 
-                GameObject bullet =
-                    Instantiate(
-                        bulletPrefab,
-                        firePoint.position,
-                        spreadRotation
-                    );
-
-                Rigidbody2D bulletRb =
-                    bullet.GetComponent<Rigidbody2D>();
-
-                bulletRb.linearVelocity =
-                    bullet.transform.right
-                    * bulletSpeed;
+                // Aplicar mejoras de daño y radio a la bala
+                Bullet bulletScript = bullet.GetComponent<Bullet>();
+                if (bulletScript != null && UpgradeManager.instance != null)
+                {
+                    bulletScript.explosionRadius += UpgradeManager.instance.bonusExplosionRadius;
+                    bulletScript.damage += UpgradeManager.instance.bonusDamage;
+                }
             }
 
             ApplyRecoil();

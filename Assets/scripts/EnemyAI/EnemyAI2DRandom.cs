@@ -20,6 +20,11 @@ public class EnemyRandom : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
+        if (UpgradeManager.instance != null)
+        {
+            speed += UpgradeManager.instance.bonusEnemySpeed;
+        }
+
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
 
         if (playerObject != null)

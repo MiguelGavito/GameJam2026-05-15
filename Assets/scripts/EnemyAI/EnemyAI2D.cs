@@ -17,6 +17,11 @@ public class EnemyAI2D : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
+        if (UpgradeManager.instance != null)
+        {
+            speed += UpgradeManager.instance.bonusEnemySpeed;
+        }
+
         // Obtener script de vida del jugador
         playerHealth = player.GetComponent<PlayerHealth>();
     }

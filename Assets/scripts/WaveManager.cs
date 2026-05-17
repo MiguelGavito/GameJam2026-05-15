@@ -35,6 +35,10 @@ public class WaveManager : MonoBehaviour
     public LayerMask obstacleLayer;
     public float checkRadius = 0.5f;
 
+    [Header("Recompensas y tiempos")]
+    public GameObject chestPrefab;
+    public float timeBetweenWaves = 15f;
+
     private Camera mainCam;
     private bool isSpawning = false;
     private bool waitingForEnemiesToDie = false;
@@ -52,25 +56,41 @@ public class WaveManager : MonoBehaviour
 
     void Update()
     {
-        // Si ya terminó el tiempo de generación, comprobamos si quedan enemigos vivos
         if (waitingForEnemiesToDie)
         {
-            // Buscamos cuántos objetos con la etiqueta "Enemy" existen en la escena
             if (GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
             {
-                // Todos los enemigos han muerto, pasamos a la siguiente oleada
+                // Dejamos de esperar
                 waitingForEnemiesToDie = false;
-                currentWaveIndex++;
-
-                if (currentWaveIndex < waves.Length)
-                {
-                    StartCoroutine(StartWave());
-                }
-                else
-                {
-                    Debug.Log("¡Victoria! Has superado todas las oleadas.");
-                }
+                
+                // Iniciamos la rutina de descanso
+                StartCoroutine(WaveBreakRoutine());
             }
+        }
+    }
+
+    // --- NUEVA RUTINA DE DESCANSO ---
+    IEnumerator WaveBreakRoutine()
+    {
+        Debug.Log("Oleada limpiada. Generando cofre...");
+        SpawnChest();
+
+        currentWaveIndex++;
+
+        // Verificamos si aún quedan oleadas por jugar
+        if (currentWaveIndex < waves.Length)
+        {
+            Debug.Log("Iniciando descanso de " + timeBetweenWaves + " segundos.");
+            
+            // Esperamos los 15 segundos
+            yield return new WaitForSeconds(timeBetweenWaves);
+
+            // Una vez pasado el tiempo, arrancamos la siguiente oleada
+            StartCoroutine(StartWave());
+        }
+        else
+        {
+            Debug.Log("¡Victoria! Has superado todas las oleadas.");
         }
     }
 
@@ -169,5 +189,53 @@ public class WaveManager : MonoBehaviour
         }
 
         return mainCam.ViewportToWorldPoint(new Vector3(x, y, mainCam.nearClipPlane));
+    }
+
+    void SpawnChest()
+    {
+        if (chestPrefab == null)
+        {
+            Debug.LogWarning("No has asignado el Prefab del cofre en el WaveManager");
+            return;
+        }
+
+        Vector2 spawnPos = Vector2.zero;
+        bool positionFound = false;
+    
+        int maxAttempts = 50; 
+
+        for (int i = 0; i < maxAttempts; i++)
+        {
+            float randomX = Random.Range(minBounds.x, maxBounds.x);
+            float randomY = Random.Range(minBounds.y, maxBounds.y);
+            spawnPos = new Vector2(randomX, randomY);
+
+            Vector3 viewportPos = mainCam.WorldToViewportPoint(spawnPos);
+            bool isInsideCamera = viewportPos.x >= 0f && viewportPos.x <= 1f && 
+                                  viewportPos.y >= 0f && viewportPos.y <= 1f;
+
+            // Si la cámara lo está viendo, este punto no nos sirve. Saltamos al siguiente intento.
+            if (isInsideCamera) continue;
+
+            // Comprobar si hay un bloque sólido en ese punto
+            Collider2D hit = Physics2D.OverlapCircle(spawnPos, checkRadius, obstacleLayer);
+            
+            // Si hay un muro, este punto tampoco nos sirve.
+            if (hit != null) continue;
+
+            // Si llegamos hasta aquí, el punto es perfecto: dentro del mapa, fuera de cámara y sin muros.
+            positionFound = true;
+            break;
+        }
+
+        if (positionFound)
+        {
+            Instantiate(chestPrefab, spawnPos, Quaternion.identity);
+            Debug.Log("¡Cofre generado en la arena!");
+        }
+        else
+        {
+            Debug.LogWarning("No se encontró un lugar oculto para el cofre.");
+        }
     }
 }

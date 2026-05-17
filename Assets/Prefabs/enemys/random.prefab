@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2636035059650681644}
   - component: {fileID: 3937389382628012052}
   - component: {fileID: 1664260793234936229}
+  - component: {fileID: 3036875545280506421}
   m_Layer: 6
   m_Name: random
   m_TagString: Enemy
@@ -202,3 +203,15 @@ MonoBehaviour:
   stopDistance: 1.5
   wobbleStrength: 1.5
   wobbleSpeed: 2
+--- !u!114 &3036875545280506421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3656137939779678922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875e8a412c0134b479be0cf1fdaad5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnockbackReceiver

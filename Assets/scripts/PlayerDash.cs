@@ -3,7 +3,7 @@ using UnityEngine;
 public class PlayerDash : MonoBehaviour
 {
     [Header("Dash Settings")]
-    public KeyCode dashKey = KeyCode.Q;
+    public KeyCode dashKey = KeyCode.LeftShift;
     public float dashCooldown = 1f;
 
     [Header("Optional")]

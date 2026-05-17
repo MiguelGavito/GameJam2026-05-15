@@ -63,21 +63,25 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log("PLAYER DIED");
 
-        // Desactivar movimiento del jugador
-        GetComponent<PlayerMovement>().enabled = false;
+        // 🔥 DESACTIVAR TODOS LOS MOVIMIENTOS
+        PlayerMovement move = GetComponent<PlayerMovement>();
+        if (move != null)
+            move.enabled = false;
 
-        // Detener velocidad
+        PlayerDash dash = GetComponent<PlayerDash>();
+        if (dash != null)
+            dash.enabled = false;
+
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-
         if (rb != null)
         {
             rb.linearVelocity = Vector2.zero;
+            rb.bodyType = RigidbodyType2D.Kinematic; // 🔥 CLAVE
         }
 
         if (deathPanel != null)
             deathPanel.SetActive(true);
 
-        // Pausar TODO el juego
         StartCoroutine(DeathRoutine());
     }
 

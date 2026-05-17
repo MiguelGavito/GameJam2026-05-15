@@ -7,7 +7,7 @@ public class BulletManager : MonoBehaviour
 
     [Header("Key Settings")]
     public bool enableExplodeKey = true;
-    public KeyCode explodeKey = KeyCode.E;
+    public KeyCode explodeKey = KeyCode.Space;
 
     private List<Bullet> bullets = new List<Bullet>();
 

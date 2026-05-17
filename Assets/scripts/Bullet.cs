@@ -45,6 +45,13 @@ public class Bullet : MonoBehaviour
             return;
 
         EnemyHealth enemy = collision.collider.GetComponent<EnemyHealth>();
+        BossHealth boss = collision.collider.GetComponent<BossHealth>();
+
+        if (boss != null)
+{
+    Explode();
+    return;
+}
 
         if (enemy != null)
         {

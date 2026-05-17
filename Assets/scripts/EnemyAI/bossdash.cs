@@ -1,3 +1,5 @@
+// BossDash.cs — Predictive Dash with ForceDash API
+
 using UnityEngine;
 using System.Collections;
 
@@ -7,81 +9,63 @@ public class BossDash : MonoBehaviour
     public Transform player;
 
     [Header("Dash")]
-    public float dashForce = 30f;
+    public float dashForce    = 35f;
+    public float dashDuration = 0.18f;
+    public float dashCooldown = 3.5f;
 
-    public float dashDuration = 0.2f;
-
-    public float dashCooldown = 3f;
-
-    [Header("Effects")]
-    public bool stopAfterDash = true;
+    [Header("Trail (optional)")]
+    public TrailRenderer dashTrail;
 
     private Rigidbody2D rb;
-
-    private bool dashing = false;
-
+    private bool  dashing     = false;
     private float nextDashTime;
 
+    // ─────────────────────────────────────────────────────────────
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
-        GameObject playerObj =
-            GameObject.FindGameObjectWithTag("Player");
-
-        if (playerObj != null)
-        {
-            player = playerObj.transform;
-        }
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null) player = playerObj.transform;
     }
 
     void Update()
     {
-        if (player == null)
-            return;
+        // Autonomous timed dash (fallback when BossAI doesn't call ForceDash)
+        if (player == null || dashing) return;
+        if (Time.time < nextDashTime)  return;
 
-        TryDash();
+        // Default autonomous: dash toward current player position
+        ForceDash(player.position);
     }
 
-    void TryDash()
+    // ── Called by BossAI with a predicted target position ─────────
+    public void ForceDash(Vector2 targetPosition)
     {
-        if (dashing)
-            return;
+        if (dashing) return;
+        if (Time.time < nextDashTime) return;
 
-        if (Time.time < nextDashTime)
-            return;
-
-        nextDashTime =
-            Time.time + dashCooldown;
-
-        StartCoroutine(Dash());
+        nextDashTime = Time.time + dashCooldown;
+        StartCoroutine(DashRoutine(targetPosition));
     }
 
-    IEnumerator Dash()
+    IEnumerator DashRoutine(Vector2 targetPosition)
     {
         dashing = true;
 
-        // 🎯 dirección al jugador
-        Vector2 dashDirection =
-            (player.position - transform.position)
-            .normalized;
+        if (dashTrail != null) dashTrail.emitting = true;
 
-        // ⚡ velocidad instantánea
-        rb.linearVelocity =
-            dashDirection * dashForce;
+        Vector2 dashDir = (targetPosition - (Vector2)transform.position).normalized;
+        rb.linearVelocity = dashDir * dashForce;
 
-        // ⏳ duración dash
-        yield return new WaitForSeconds(
-            dashDuration
-        );
+        yield return new WaitForSeconds(dashDuration);
 
-        // 🛑 detenerse
-        if (stopAfterDash)
-        {
-            rb.linearVelocity =
-                Vector2.zero;
-        }
+        rb.linearVelocity = Vector2.zero;
+
+        if (dashTrail != null) dashTrail.emitting = false;
 
         dashing = false;
     }
+
+    public bool IsDashing() => dashing;
 }

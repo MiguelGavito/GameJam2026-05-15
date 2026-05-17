@@ -167,7 +167,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.6, y: 0.7}
   m_EdgeRadius: 0
 --- !u!114 &-5262165197794297201
 MonoBehaviour:
@@ -190,6 +190,7 @@ MonoBehaviour:
   reflectedBulletSpeed: 25
   baseShakeMagnitude: 0.15
   baseShakeDuration: 0.15
+  explosionSound: {fileID: 8300000, guid: ce74dc7d538499647a1d7c043c9635b5, type: 3}
 --- !u!114 &-6109430716698819670
 MonoBehaviour:
   m_ObjectHideFlags: 0

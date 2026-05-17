@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 124403757982311315}
-  - component: {fileID: 422224609481994544}
+  - component: {fileID: 5889347437062058085}
+  - component: {fileID: 6140602664181905462}
   m_Layer: 0
   m_Name: fire point
   m_TagString: Untagged
@@ -26,13 +27,35 @@ Transform:
   m_GameObject: {fileID: 5411269607420305006}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.19933333, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalPosition: {x: 0.571, y: 0.048, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8405353547800587368}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &422224609481994544
+--- !u!95 &5889347437062058085
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5411269607420305006}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ebc02304d72f16d4c85025641e3a9730, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!212 &6140602664181905462
 SpriteRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
@@ -81,15 +104,15 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_FlipX: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
 --- !u!1 &5515651702477581081
 GameObject:
@@ -117,7 +140,7 @@ Transform:
   m_GameObject: {fileID: 5515651702477581081}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5849991, y: 0.015000343, z: 0}
+  m_LocalPosition: {x: 0.8349991, y: -0.23499966, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -382,6 +405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHealth: 100000
+  animator: {fileID: 0}
 --- !u!114 &8771741642039701343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,3 +507,5 @@ MonoBehaviour:
   bulletsPerShot: 1
   spreadAngle: 10
   recoilForce: 5
+  muzzleAnimator: {fileID: 5889347437062058085}
+  shootSound: {fileID: 8300000, guid: 115e85e6b1eb8134b88bd4b904b89081, type: 3}

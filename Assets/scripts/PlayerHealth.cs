@@ -8,6 +8,8 @@ public class PlayerHealth : MonoBehaviour
 
     private bool isDead = false;
 
+    public Animator animator;
+
     void Start()
     {
         currentHealth = maxHealth;
@@ -22,6 +24,11 @@ public class PlayerHealth : MonoBehaviour
             return;
 
         currentHealth -= damage;
+
+        if (animator != null)
+        {
+            animator.SetTrigger("Hurt");
+        }
 
         // Evitar negativos
         if (currentHealth < 0)

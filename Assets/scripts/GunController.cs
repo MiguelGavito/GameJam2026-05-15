@@ -23,6 +23,10 @@ public class GunController : MonoBehaviour
 
     private Rigidbody2D playerRb;
 
+    [Header("Effects")]
+    public Animator muzzleAnimator; // El efecto visual del disparo
+    public AudioClip shootSound;
+
     void Start()
     {
         playerRb =
@@ -75,6 +79,16 @@ public class GunController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             nextFireTime = Time.time + actualCooldown;
+
+            if (shootSound != null)
+            {
+                AudioSource.PlayClipAtPoint(shootSound, firePoint.position);
+            }
+
+            if (muzzleAnimator != null)
+            {
+                muzzleAnimator.SetTrigger("Flash");
+            }
 
             for (int i = 0; i < bulletsPerShot; i++)
             {

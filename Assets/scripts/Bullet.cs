@@ -26,6 +26,9 @@ public class Bullet : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
 
+    [Header("Audio")]
+    public AudioClip explosionSound;
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -98,6 +101,23 @@ public class Bullet : MonoBehaviour
         exploded = true;
 
         Debug.Log("BOOM");
+
+        if (explosionSound != null)
+        {
+            // Reproduce el sonido en la posición actual de la bala
+            AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+        }
+
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            // Buscamos el Animator que está en el jugador o en uno de sus hijos
+            Animator playerAnim = playerObj.GetComponentInChildren<Animator>();
+            if (playerAnim != null)
+            {
+                playerAnim.SetTrigger("ExplosionReaction");
+            }
+        }
 
         // --- NUEVA LÓGICA DE SCREEN SHAKE PROGRESIVO ---
         if (CameraFollow.instance != null)

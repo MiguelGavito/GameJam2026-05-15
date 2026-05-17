@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 792895334248876596}
   - component: {fileID: 3821216520825664081}
   - component: {fileID: -5262165197794297201}
+  - component: {fileID: -6109430716698819670}
   m_Layer: 0
   m_Name: Bullet 1
   m_TagString: Untagged
@@ -107,10 +108,10 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 2
   m_AngularDamping: 0.05
   m_GravityScale: 0
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e9e889e82771dff4f85124ed7b62b3e9, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -181,10 +182,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   explosionRadius: 3
   damage: 40
-  timer: 2
+  timer: 3
   explosionDuration: 0.3
   knockbackForce: 15
   knockbackDuration: 0.15
   reflectedBulletSpeed: 25
   baseShakeMagnitude: 0.15
   baseShakeDuration: 0.15
+--- !u!114 &-6109430716698819670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7090361405687250187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 875e8a412c0134b479be0cf1fdaad5dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KnockBackReceiver

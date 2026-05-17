@@ -24,8 +24,8 @@ public class PlayerMovement : MonoBehaviour
         movement = movement.normalized;
 
         // 🎮 ANIMACIÓN
-        float moving = movement != Vector2.zero ? 1f : 0f;
-        animator.SetFloat("Moving", moving);
+        // float moving = movement != Vector2.zero ? 1f : 0f;
+        // animator.SetFloat("Moving", moving);
 
         RotateToMouse();
     }

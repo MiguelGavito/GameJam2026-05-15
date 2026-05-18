@@ -185,6 +185,12 @@ public class Bullet : MonoBehaviour
             {
                 player.TakeDamage(damage);
             }
+
+            BossHealth bossHit = hit.GetComponent<BossHealth>();
+            if (bossHit != null)
+            {
+                bossHit.TakeDamage(damage);
+            }
         }
 
         if (rb != null)

@@ -200,7 +200,14 @@ public class BossAI : MonoBehaviour
     void StateDash()
     {
         SetGunMoving(true);
-        rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, 6f * Time.deltaTime);
+
+        // --- NUEVO: Solo frenamos si el impulso del Dash ya terminó ---
+        if (bossDash == null || !bossDash.IsDashing())
+        {
+            rb.linearVelocity = Vector2.Lerp(rb.linearVelocity, Vector2.zero, 6f * Time.deltaTime);
+        }
+        // --------------------------------------------------------------
+
         if (stateTimer <= 0f) ChooseNextState();
     }
 

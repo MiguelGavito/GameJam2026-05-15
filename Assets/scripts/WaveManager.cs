@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Mantenemos nuestra clase de probabilidades
 [System.Serializable]
@@ -38,10 +39,12 @@ public class WaveManager : MonoBehaviour
     [Header("Recompensas y tiempos")]
     public GameObject chestPrefab;
     public float timeBetweenWaves = 15f;
+    public float healPerWave = 20f;
 
     private Camera mainCam;
     private bool isSpawning = false;
     private bool waitingForEnemiesToDie = false;
+
 
     void Start()
     {
@@ -75,7 +78,20 @@ public class WaveManager : MonoBehaviour
         Debug.Log("Oleada limpiada. Generando cofre...");
         SpawnChest();
 
+        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+        if (playerObj != null)
+        {
+            PlayerHealth playerHealth = playerObj.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.Heal(healPerWave);
+                Debug.Log("Curando al jugador por sobrevivir la oleada.");
+            }
+        }
+
         currentWaveIndex++;
+
+        
 
         // Verificamos si aún quedan oleadas por jugar
         if (currentWaveIndex < waves.Length)
@@ -91,6 +107,8 @@ public class WaveManager : MonoBehaviour
         else
         {
             Debug.Log("¡Victoria! Has superado todas las oleadas.");
+            yield return new WaitForSeconds(5f);
+            SceneManager.LoadScene("EndingScene");
         }
     }
 

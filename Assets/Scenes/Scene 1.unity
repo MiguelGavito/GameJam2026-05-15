@@ -1383,7 +1383,8 @@ PrefabInstance:
       value: build3 (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1026147731014285176, guid: dca4b383004d541d6bb9b5e7800feb2c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dca4b383004d541d6bb9b5e7800feb2c, type: 3}
@@ -1686,7 +1687,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3704,6 +3705,16 @@ MonoBehaviour:
   waves:
   - waveName: Primera
     waveDuration: 10
+    spawnInterval: 0.8
+    waveEnemies:
+    - name: Goomba
+      prefab: {fileID: 3656137939779678922, guid: 66afc2dd9526c1c4b86ba5688038c955, type: 3}
+      spawnChance: 2
+    - name: Dasher
+      prefab: {fileID: 762340031116765458, guid: 560751802baaa2d4094772e51bff16c3, type: 3}
+      spawnChance: 1
+  - waveName: Segunda
+    waveDuration: 11
     spawnInterval: 0.7
     waveEnemies:
     - name: Goomba
@@ -3712,36 +3723,48 @@ MonoBehaviour:
     - name: Dasher
       prefab: {fileID: 762340031116765458, guid: 560751802baaa2d4094772e51bff16c3, type: 3}
       spawnChance: 1
-  - waveName: Oleada 2
-    waveDuration: 14
-    spawnInterval: 1
-    waveEnemies:
-    - name: Explosivo
-      prefab: {fileID: 762340031116765458, guid: 560751802baaa2d4094772e51bff16c3, type: 3}
-      spawnChance: 2
-    - name: Explosivo
+    - name: Orbiter
       prefab: {fileID: 3070399501935489979, guid: cac8a00f416e9284dab82decbebe9bd5, type: 3}
-      spawnChance: 3
+      spawnChance: 5
+  - waveName: Tercera
+    waveDuration: 11
+    spawnInterval: 0.7
+    waveEnemies:
     - name: Goomba
       prefab: {fileID: 3656137939779678922, guid: 66afc2dd9526c1c4b86ba5688038c955, type: 3}
       spawnChance: 1
-  - waveName: Oleada 3
-    waveDuration: 10
-    spawnInterval: 0.7
-    waveEnemies:
-    - name: Elite
-      prefab: {fileID: 3656137939779678922, guid: ea865e155de8849abbc55c9c128221d5, type: 3}
+    - name: Dasher
+      prefab: {fileID: 762340031116765458, guid: 560751802baaa2d4094772e51bff16c3, type: 3}
       spawnChance: 1
-    - name: Elite
+    - name: Orbiter
+      prefab: {fileID: 3070399501935489979, guid: cac8a00f416e9284dab82decbebe9bd5, type: 3}
+      spawnChance: 2
+    - name: Cobarde
       prefab: {fileID: 3070399501935489979, guid: 38ac2078d8b4a4b4295a3ad29bab05ce, type: 3}
       spawnChance: 2
-  - waveName: Oleada 4
-    waveDuration: 1.2
+  - waveName: Cuarta
+    waveDuration: 12
     spawnInterval: 1
     waveEnemies:
-    - name: Boss
-      prefab: {fileID: 2598207501343857140, guid: 80b11cbdc94d7404598822a9fec475a7, type: 3}
+    - name: Goomba
+      prefab: {fileID: 3656137939779678922, guid: ea865e155de8849abbc55c9c128221d5, type: 3}
+      spawnChance: 3
+    - name: Dasher
+      prefab: {fileID: 762340031116765458, guid: 560751802baaa2d4094772e51bff16c3, type: 3}
       spawnChance: 1
+    - name: Orbiter
+      prefab: {fileID: 3070399501935489979, guid: cac8a00f416e9284dab82decbebe9bd5, type: 3}
+      spawnChance: 1
+    - name: Cobarde
+      prefab: {fileID: 3070399501935489979, guid: 38ac2078d8b4a4b4295a3ad29bab05ce, type: 3}
+      spawnChance: 1
+  - waveName: Boss
+    waveDuration: 1
+    spawnInterval: 0.9
+    waveEnemies:
+    - name: Goomba
+      prefab: {fileID: 2598207501343857140, guid: 80b11cbdc94d7404598822a9fec475a7, type: 3}
+      spawnChance: 100
   minBounds: {x: 0, y: 0}
   maxBounds: {x: 100, y: 100}
   obstacleLayer:
@@ -3750,6 +3773,7 @@ MonoBehaviour:
   checkRadius: 0.5
   chestPrefab: {fileID: 8018436750575565823, guid: 2f33d96f88785a944bcb48c29b05127f, type: 3}
   timeBetweenWaves: 5
+  healPerWave: 50
 --- !u!1 &1724201128
 GameObject:
   m_ObjectHideFlags: 0

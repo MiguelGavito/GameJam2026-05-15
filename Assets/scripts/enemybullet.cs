@@ -7,6 +7,7 @@ public class EnemyBullet : MonoBehaviour
     public float damage = 25f;
     public float timer = 2f;
     public float explosionDuration = 0.3f;
+    private Animator animator;
 
     [Header("Knockback")]
     public float knockbackForce = 10f;
@@ -34,6 +35,7 @@ public class EnemyBullet : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         bulletCollider = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         Invoke(nameof(Explode), timer);
     }
@@ -112,7 +114,10 @@ public class EnemyBullet : MonoBehaviour
         bulletCollider.enabled = false;
 
         // 🔴 color explosión
-        spriteRenderer.color = Color.red;
+        if (animator != null)
+        {
+            animator.SetTrigger("Explode");
+        }
 
         // 📏 expandir visualmente
         transform.localScale =

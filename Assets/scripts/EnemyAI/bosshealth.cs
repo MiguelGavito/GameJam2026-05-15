@@ -24,6 +24,7 @@ public class BossHealth : MonoBehaviour
     // BossAI reads bossHealth directly — no circular ref needed here
 
     private bool dead = false;
+    public Animator animator;
 
     // ─────────────────────────────────────────────────────────────
     void Start()
@@ -34,6 +35,11 @@ public class BossHealth : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if (dead) return;
+
+        if (animator != null)
+        {
+            animator.SetTrigger("Hurt");
+        }
 
         currentHealth = Mathf.Max(0f, currentHealth - damage);
         CheckPhases();

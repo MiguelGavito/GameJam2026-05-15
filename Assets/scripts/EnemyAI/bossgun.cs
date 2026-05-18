@@ -91,11 +91,25 @@ public class BossGun : MonoBehaviour
     {
         Vector2   dir   = PredictedPlayerPos() - (Vector2)transform.position;
         float     angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        
         transform.rotation = Quaternion.Slerp(
             transform.rotation,
             Quaternion.Euler(0f, 0f, angle),
             rotationSpeed * Time.deltaTime
         );
+
+        // --- NUEVO: Voltear el arma para que no quede de cabeza ---
+        Vector3 localScale = Vector3.one;
+        if (angle > 90 || angle < -90)
+        {
+            localScale.y = -1f; // Voltea el arma en el eje Y
+        }
+        else
+        {
+            localScale.y = 1f;  // La devuelve a la normalidad
+        }
+        transform.localScale = localScale;
+        // ----------------------------------------------------------
     }
 
     // The boss only fires after holding a clean aim for aimHoldRequired seconds

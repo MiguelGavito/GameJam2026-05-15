@@ -50,6 +50,10 @@ public class AudioManager : MonoBehaviour
             case "Scene 1":
                 PlayIntroAndLoop(gameplayIntro, gameplayLoop);
                 break;
+                
+            case "EndingScene":
+                PlayLoop(menuLoop);
+                break;
         }
     }
 

@@ -61,6 +61,23 @@ public class PlayerHealth : MonoBehaviour
             Die();
         }      
     }
+    public void Heal(float amount)
+    {
+        // Si ya está muerto, no hacemos nada
+        if (isDead)
+            return;
+
+        currentHealth += amount;
+
+        // Evitar que la vida supere el límite máximo
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        UpdateUI();
+
+        Debug.Log("Player Healed! HP: " + currentHealth);
+    }
 
     void Die()
     {

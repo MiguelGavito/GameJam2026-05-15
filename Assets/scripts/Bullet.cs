@@ -37,7 +37,7 @@ public class Bullet : MonoBehaviour
         animator = GetComponent<Animator>();
         
          // 🔥 REGISTRO EN MANAGER
-     BulletManager.Instance.RegisterBullet(this);
+        BulletManager.Instance.RegisterBullet(this);
 
         Invoke(nameof(Explode), timer);
     }

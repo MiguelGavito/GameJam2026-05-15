@@ -3,11 +3,11 @@ using TMPro;
 
 public class EnemyCounterUI : MonoBehaviour
 {
-// public TextMeshProUGUI text;
+public TextMeshProUGUI text;
 
     void Update()
     {
-// int count = GameObject.FindGameObjectsWithTag("Enemy").Length;
-// text.text = "" + count;
+        int count = GameObject.FindGameObjectsWithTag("Enemy").Length;
+        text.text = "" + count;
     }
 }
